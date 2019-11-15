@@ -1,0 +1,7 @@
+#ifndef __CONFIG_INTL_H__
+#define __CONFIG_INTL_H__
+
+#cmakedefine HAVE_TIME_H
+#cmakedefine HAVE_GETTICKCOUNT
+
+#endif //__CONFIG_INTL_H__
