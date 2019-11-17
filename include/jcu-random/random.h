@@ -10,6 +10,7 @@
 #ifndef __JCU_RANDOM_RANDOM_H__
 #define __JCU_RANDOM_RANDOM_H__
 
+#include <stddef.h>
 #include <stdint.h>
 
 #define JCU_RANDOM_NEXT_MASK ((1LL << 48) - 1)
