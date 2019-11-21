@@ -16,6 +16,7 @@ namespace jcu {
     namespace random {
 
         class SecureRandom : public Random {
+            virtual void getSeed(void *buf, size_t length) = 0;
         };
 
     }

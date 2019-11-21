@@ -8,10 +8,11 @@
 #include "jcu-random/secure-random-factory.h"
 #include "jcu-random/random-provider.h"
 
+#include "random-intl.h"
+
 #include "digest/sha1_digest.h"
 
 #include <mutex>
-#include <iostream>
 
 namespace jcu {
     namespace random {
@@ -45,6 +46,12 @@ namespace jcu {
                 temp &= JCU_RANDOM_NEXT_MASK;
                 return (int)(temp >> ((unsigned)(48 - bits)));
             }
+
+            void getSeed(void *buf, size_t length) override {
+                setSeed(getTempSeed());
+                nextBytes(buf, length);
+            }
+
             void setSeed(const void *data, int length) {
                 std::unique_lock<std::mutex> lock(mutex_);
                 digest_.update(&seed_, sizeof(seed_));
