@@ -1,5 +1,7 @@
 #include "sha1_digest.h"
 
+#include <stddef.h>
+
 #define DIGEST_BLOCK_INTS 16
 #define DIGEST_BLOCK_BYTES (DIGEST_BLOCK_INTS * 4)
 
