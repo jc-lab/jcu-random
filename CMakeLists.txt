@@ -8,6 +8,7 @@ option(WITH_EXAMPLE "Build example." OFF)
 include(CheckSymbolExists)
 check_symbol_exists(time time.h HAVE_TIME_H)
 check_symbol_exists(GetTickCount windows.h HAVE_GETTICKCOUNT)
+check_symbol_exists(gettimeofday sys/time.h HAVE_GETTIMEOFDAY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config-intl.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-intl.h)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

@@ -3,5 +3,6 @@
 
 #cmakedefine HAVE_TIME_H
 #cmakedefine HAVE_GETTICKCOUNT
+#cmakedefine HAVE_GETTIMEOFDAY
 
 #endif //__CONFIG_INTL_H__
