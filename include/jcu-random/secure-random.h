@@ -13,13 +13,13 @@
 #include "random.h"
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class SecureRandom : public Random {
-            virtual void getSeed(void *buf, size_t length) = 0;
-        };
+class SecureRandom : public Random {
+  virtual void getSeed(void *buf, size_t length) = 0;
+};
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__JCU_RANDOM_SECURE_RANDOM_H__

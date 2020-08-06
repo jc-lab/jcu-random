@@ -22,36 +22,36 @@
 #endif
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        static std::atomic<uint64_t> old_seed_(1);
+static std::atomic<uint64_t> old_seed_(1);
 
-        static void addSeed(uint64_t *target, uint64_t value) {
-            uint64_t out = *target * 0x5DEECE66DULL;
-            out += value;
-            *target = out;
-        }
+static void addSeed(uint64_t *target, uint64_t value) {
+  uint64_t out = *target * 0x5DEECE66DULL;
+  out += value;
+  *target = out;
+}
 
-        uint64_t getTempSeed() {
-            uint64_t seed = old_seed_.load();
+uint64_t getTempSeed() {
+  uint64_t seed = old_seed_.load();
 #ifdef HAVE_TIME_H
-            addSeed(&seed, time(NULL));
+  addSeed(&seed, time(NULL));
 #endif
 #ifdef HAVE_GETTICKCOUNT
-            addSeed(&seed, ::GetTickCount());
+  addSeed(&seed, ::GetTickCount());
 #endif
 #ifdef HAVE_GETTIMEOFDAY
-            {
-                timeval tv = {0, 0};
-                ::gettimeofday(&tv, NULL);
-                addSeed(&seed, tv.tv_sec);
-                addSeed(&seed, tv.tv_usec);
-            }
+  {
+      timeval tv = {0, 0};
+      ::gettimeofday(&tv, NULL);
+      addSeed(&seed, tv.tv_sec);
+      addSeed(&seed, tv.tv_usec);
+  }
 #endif
 
-            old_seed_.store(seed);
-            return seed;
-        }
-
-    }
+  old_seed_.store(seed);
+  return seed;
 }
+
+} // namespace random
+} // namespace jcu

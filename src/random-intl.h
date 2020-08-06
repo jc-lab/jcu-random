@@ -13,11 +13,11 @@
 #include <stdint.h>
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        extern uint64_t getTempSeed();
+extern uint64_t getTempSeed();
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__RANDOM_INTL_H__

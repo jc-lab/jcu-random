@@ -13,23 +13,23 @@
 #include "random.h"
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class Well512Random : public Random {
-        private:
-            uint32_t state_i_;
-            uint32_t state_data_[16];
+class Well512Random : public Random {
+ private:
+  uint32_t state_i_;
+  uint32_t state_data_[16];
 
-            uint32_t wnext();
+  uint32_t wnext();
 
-        public:
-            Well512Random();
-            ~Well512Random();
-            int next(int bits) override;
-            void setSeed(uint64_t seed) override;
-        };
+ public:
+  Well512Random();
+  ~Well512Random();
+  int next(int bits) override;
+  void setSeed(uint64_t seed) override;
+};
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__JCU_RANDOM_WELL512_RANDOM_H__

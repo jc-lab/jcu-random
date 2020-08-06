@@ -15,16 +15,16 @@
 #include "secure-random.h"
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class SecureRandomFactory {
-        public:
-            virtual std::unique_ptr<SecureRandom> create() = 0;
-        };
+class SecureRandomFactory {
+ public:
+  virtual std::unique_ptr<SecureRandom> create() = 0;
+};
 
-        extern SecureRandomFactory* getSecureRandomFactory();
+extern SecureRandomFactory *getSecureRandomFactory();
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__JCU_RANDOM_SECURE_RANDOM_FACTORY_H__

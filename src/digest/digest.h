@@ -13,20 +13,20 @@
 #include <stdint.h>
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class Digest {
-        public:
-            virtual ~Digest() {};
+class Digest {
+ public:
+  virtual ~Digest() {};
 
-            virtual int getDigestSize() = 0;
+  virtual int getDigestSize() = 0;
 
-            virtual void reset() = 0;
-            virtual void update(const void *data, int length) = 0;
-            virtual void final(void *data) = 0;
-        };
+  virtual void reset() = 0;
+  virtual void update(const void *data, int length) = 0;
+  virtual void final(void *data) = 0;
+};
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__DIGEST_DIGEST_H__

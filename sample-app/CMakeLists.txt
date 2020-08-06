@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 project(jcu-random-sample-app CXX)
 
 add_executable(${PROJECT_NAME} sample-app.cc)

@@ -15,26 +15,26 @@
 #include <stdint.h>
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class Sha1Digest : public Digest {
-        private:
-            uint32_t state_[5];
-            unsigned char buffer_[64];
-            int buffer_pos_;
-            uint64_t transforms_;
+class Sha1Digest : public Digest {
+ private:
+  uint32_t state_[5];
+  unsigned char buffer_[64];
+  int buffer_pos_;
+  uint64_t transforms_;
 
-        public:
-            Sha1Digest();
+ public:
+  Sha1Digest();
 
-            int getDigestSize() override;
+  int getDigestSize() override;
 
-            void reset() override;
-            void update(const void *data, int length) override;
-            void final(void *data) override;
-        };
+  void reset() override;
+  void update(const void *data, int length) override;
+  void final(void *data) override;
+};
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__DIGEST_DIGEST_H__

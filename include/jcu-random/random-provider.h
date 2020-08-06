@@ -16,17 +16,17 @@
 #include <memory>
 
 namespace jcu {
-    namespace random {
+namespace random {
 
-        class RandomProvider {
-        public:
-            virtual ~RandomProvider() {}
-            virtual int nextBytes(unsigned char *buffer, int length) = 0;
-        };
+class RandomProvider {
+ public:
+  virtual ~RandomProvider() {}
+  virtual int nextBytes(unsigned char *buffer, int length) = 0;
+};
 
-        extern std::unique_ptr<RandomProvider> getSystemRandomProvider();
+extern std::unique_ptr<RandomProvider> getSystemRandomProvider();
 
-    }
-}
+} // namespace random
+} // namespace jcu
 
 #endif //__JCU_RANDOM_RANDOM_PROVIDER_H__
