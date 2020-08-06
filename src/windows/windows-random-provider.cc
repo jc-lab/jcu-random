@@ -18,12 +18,52 @@ namespace platform_windows {
 class WinCryptRandomProvider : public RandomProvider {
  private:
   HCRYPTPROV crypt_prov_handler_;
+  DWORD error_code_;
 
  public:
-  WinCryptRandomProvider() {
-    crypt_prov_handler_ = NULL;
-    if (!::CryptAcquireContext(&crypt_prov_handler_, NULL, NULL, PROV_RSA_FULL, 0)) {
-      crypt_prov_handler_ = NULL;
+  WinCryptRandomProvider()
+      : crypt_prov_handler_(0), error_code_(0) {
+    BOOL rv;
+    HCRYPTPROV cryptprovider = 0;
+
+    ::SetLastError(0);
+    rv = ::CryptAcquireContext(
+        &cryptprovider, NULL,
+        MS_ENHANCED_PROV, PROV_RSA_FULL,
+        CRYPT_VERIFYCONTEXT);
+
+    if (::GetLastError() == NTE_BAD_KEYSET) {
+      rv = ::CryptAcquireContext(
+          &cryptprovider, NULL,
+          MS_ENHANCED_PROV, PROV_RSA_FULL,
+          CRYPT_NEWKEYSET);
+    }
+
+    if (rv) {
+      /* try the default provider */
+      rv = ::CryptAcquireContext(
+          &cryptprovider, NULL, 0, PROV_RSA_FULL,
+          CRYPT_VERIFYCONTEXT);
+
+      if (::GetLastError() == NTE_BAD_KEYSET) {
+        rv = ::CryptAcquireContext(
+            &cryptprovider, NULL,
+            MS_ENHANCED_PROV, PROV_RSA_FULL,
+            CRYPT_NEWKEYSET);
+      }
+    }
+
+    if (rv) {
+      /* try just a default random number generator */
+      rv = ::CryptAcquireContext(
+          &cryptprovider, NULL, 0, PROV_RNG,
+          CRYPT_VERIFYCONTEXT);
+    }
+
+    if (cryptprovider) {
+      crypt_prov_handler_ = cryptprovider;
+    } else {
+      error_code_ = ::GetLastError();
     }
   }
 
@@ -37,6 +77,10 @@ class WinCryptRandomProvider : public RandomProvider {
   int nextBytes(unsigned char *buffer, int length) override {
     ::CryptGenRandom(crypt_prov_handler_, length, (BYTE *) buffer);
     return length;
+  }
+
+  DWORD getErrorCode() const {
+    return error_code_;
   }
 };
 
