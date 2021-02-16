@@ -55,3 +55,6 @@ add_subdirectory(sample-app)
 if (WITH_EXAMPLE)
     add_subdirectory(example)
 endif ()
+
+install(TARGETS ${PROJECT_NAME})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/jcu-random DESTINATION include)
