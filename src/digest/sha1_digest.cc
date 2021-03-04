@@ -237,7 +237,8 @@ void Sha1Digest::update(const void *data, int length) {
 
   while (true) {
     int read_len;
-    buffer_pos_ = copyMemory(&buffer_[buffer_pos_], DIGEST_BLOCK_BYTES - buffer_pos_, data, pos, length);
+    read_len = copyMemory(&buffer_[buffer_pos_], DIGEST_BLOCK_BYTES - buffer_pos_, data, pos, length);
+    buffer_pos_ += read_len;
     if (buffer_pos_ != DIGEST_BLOCK_BYTES) {
       return;
     }
